@@ -1,0 +1,46 @@
+* {
+    /* border: 1px solid black; */
+}
+
+form {
+    display: flex;
+}
+
+#add-btn {
+    width: 60px;
+}
+
+#task-input {
+    /* display: flex; */
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-top: 1px solid grey;
+    border-bottom: 1px solid grey;
+ }
+
+ .ui.list.animated {
+     margin: 0;
+ }
+
+.ui.list > .item.list-item-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox {
+    padding-right: 10px;
+}
+
+.content {
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    margin-left: 5px;
+    /* border: 1px solid black; */
+}
+
+.right.floated {
+    display: flex;
+    width: 55px;
+}

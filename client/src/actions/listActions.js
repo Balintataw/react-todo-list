@@ -22,3 +22,11 @@ export function addItemToList(item) {
     }).catch(e => console.log(e))
 }
 
+export function removeItems(array) {
+    array.forEach((item, i) => {
+        axios.delete('http://localhost:3001/listItems/' + item).then(resp => {
+            getListItems()
+        }).catch(e => console.log(e))
+    })
+}
+

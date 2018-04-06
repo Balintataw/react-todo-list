@@ -17,7 +17,8 @@ export function getListItems() {
 
 export function addItemToList(item) {
     axios.post('http://localhost:3001/listItems', {
-        text: item
+        text: item,
+        isChecked: false
     }).then(resp => {
         getListItems()
     }).catch(e => console.log(e))
@@ -25,9 +26,11 @@ export function addItemToList(item) {
 
 export function removeItems(array) {
     array.forEach((item, i) => {
-        axios.delete('http://localhost:3001/listItems/' + item).then(resp => {
-            getListItems()
-        }).catch(e => console.log(e))
+        if (item.isChecked === true) {
+            axios.delete('http://localhost:3001/listItems/' + item.id).then(resp => {
+                getListItems()
+            }).catch(e => console.log(e))
+        }
     })
 }
 

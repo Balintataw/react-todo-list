@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { List, Button } from 'semantic-ui-react'
 import { getListItems, addChecked, removeChecked } from '../../actions/listActions'
 import { addItemToList } from '../../actions/listActions'
-import { removeItems, removeItem } from '../../actions/listActions'
+import { removeItem } from '../../actions/listActions'
 import TaskHandler from './TaskHandler'
 import './itemsList.css'
 
@@ -13,8 +13,6 @@ placeholder.className = "placeholder";
 export class ItemsList extends Component {
     state = { 
         currentValue: '',
-        // checked: false,
-        checkedArray: []
     }
     static defaultProps = {
         options:[ ]
@@ -31,29 +29,6 @@ export class ItemsList extends Component {
             [target.name]: target.value
         })
     }
-    //removes all items in checkedArray 
-    handleTaskRemoval = (e) => {
-        removeItems(this.state.checkedArray)
-        this.setState({
-            checkedArray: []
-        })
-    }
-    // onCheckboxChange = ({target}) => {
-    //     let val = target.value
-    //     this.setState({
-    //         [target.checked]: !!target.checked,
-    //     })
-    //     if (target.checked === true) {
-    //         this.setState({
-    //             checkedArray: [...this.state.checkedArray, val]
-    //         })
-    //     } else {
-    //         var index = this.state.checkedArray.indexOf(val);
-    //         if (index >= 0) {
-    //             this.state.checkedArray.splice(index, 1);
-    //         }
-    //     }
-    // }
 
     componentWillReceiveProps(newProps) {
         // console.log(this.props)
@@ -98,7 +73,6 @@ class Item extends Component {
 
     handleTaskRemoval = (e) => {
         e.preventDefault()
-        console.log(this.props.id)
         removeItem(this.props.id)
     }
 
@@ -128,7 +102,7 @@ class Item extends Component {
 }
 
 function mapStateToProps(state) {
-    // console.log(state.listReducer)
+    console.log(state.listReducer)
     return {
         options: state.listReducer.listItems
     }

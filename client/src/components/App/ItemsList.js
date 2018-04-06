@@ -13,43 +13,45 @@ export class ItemsList extends Component {
         checked: false,
         checkedArray: []
     }
-
     static defaultProps = {
         options:[ ]
     }
-    componentDidMount = () => {
-        getListItems()
-    }
+    componentDidMount = () => { getListItems() }
 
-    handleAddition = ({ value }) => {
-        addItemToList(this.state.currentValue)
-    }
+    handleAddition = ({ value }) => { addItemToList(this.state.currentValue) }
+
     handleChange = ({ target }) => {
         this.setState({ 
             [target.name]: target.value,
             currentValue: target.value
         })
     }
+    //removes all items in checkedArray
     handleTaskRemoval = (e) => {
         removeItems(this.state.checkedArray)
     }
-    onCheckboxChange = (e) => {
+    onCheckboxChange = ({target}) => {
+        let val = target.value
         this.setState({
-            [e.target.checked]: !!e.target.checked,
+            [target.checked]: !!target.checked,
         })
-        if (e.target.checked === true) {
-            console.log('is checked')
-            
+        if (target.checked == true) {
             this.setState({
-                checkedArray: [...this.state.checkedArray, e.target.value]
+                checkedArray: [...this.state.checkedArray, val]
             })
         } else {
-            //remove this from array this is more of a clear all than delete single
+            var index = this.state.checkedArray.indexOf(val);
+            if (index >= 0) {
+                this.state.checkedArray.splice(index, 1);
+            }
         }
+    }
+    componentWillReceiveProps(newProps) {
+        // console.log(this.props)
+        // console.log(newProps)
     }
     render() {
         return (
-            
             <div className="list-wrapper">
                 <form action=""  >
                     <input  type="text"
@@ -62,23 +64,23 @@ export class ItemsList extends Component {
                     />
                     <button type="submit" onClick={this.handleAddition} id="add-btn">Add</button>
                 </form>
-        {console.log(this.state.checkedArray)}
-                
                 <List animated divided selection verticalAlign='middle'>
                     {this.props.options.map((task, i) => {
-                        return  <List.Item key={"task" + i} className="list-item-wrapper">
-                                    <input  type="checkbox" 
-                                            className="checkbox"
-                                            value={task.key}
-                                            defaultChecked={this.state.checked}
-                                            onMouseDown={this.onCheckboxChange}/>
-                                    <List.Content className="message-wrapper">
-                                        <List.Content className="message">{task.text}</List.Content>
-                                    </List.Content>
-                                    <List.Content floated='right'>
-                                        <Button onClick={this.handleTaskRemoval}>X</Button>
-                                    </List.Content>
-                                </List.Item>
+                        return  (
+                            <List.Item key={"task" + i} className="list-item-wrapper">
+                                <input  type="checkbox" 
+                                        className="checkbox"
+                                        value={task.key}
+                                        defaultChecked={this.state.checked}
+                                        onClick={this.onCheckboxChange}/>
+                                <List.Content className="message-wrapper">
+                                    <List.Content className="message">{task.text}</List.Content>
+                                </List.Content>
+                                <List.Content floated='right'>
+                                    <Button onClick={this.handleTaskRemoval}>X</Button>
+                                </List.Content>
+                            </List.Item> 
+                        )
                     })}
                 </List>
             </div>

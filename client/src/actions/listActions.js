@@ -3,16 +3,29 @@ import store from '../services/store'
 
 export function getListItems() {
     axios.get("http://localhost:3001/listItems").then(resp => {
-        const items = resp.data.map(item => ({
-            id: item.id,
-            text: item.text,
-            isChecked : item.isChecked
-        }))
         store.dispatch({
             type: "GET_LIST_ITEMS",
-            payload: items
+            payload: resp.data
         })
     }).catch(e => console.log(e))
+}
+
+export function getActiveListItems() {
+    axios.get("http://localhost:3001/listItems?isChecked=false").then(resp => {
+        store.dispatch({
+            type: "GET_ACTIVE_ITEMS",
+            payload: resp.data
+        })
+    })
+}
+
+export function getCompletedListItems() {
+    axios.get("http://localhost:3001/listItems?isChecked=true").then(resp => {
+        store.dispatch({
+            type: "GET_COMPLETED_ITEMS",
+            payload: resp.data
+        })
+    })
 }
 
 export function addItemToList(item) {

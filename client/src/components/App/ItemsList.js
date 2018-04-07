@@ -7,9 +7,6 @@ import { removeItem } from '../../actions/listActions'
 import TaskHandler from './TaskHandler'
 import './itemsList.css'
 
-var placeholder = document.createElement("li");
-placeholder.className = "placeholder";
-
 export class ItemsList extends Component {
     state = { 
         currentValue: '',
@@ -17,11 +14,16 @@ export class ItemsList extends Component {
     static defaultProps = {
         options:[ ]
     }
-    componentDidMount = () => { getListItems() }
+    componentDidMount = () => { 
+        getListItems() 
+    }
 
     handleAddition = (e) => { 
         e.preventDefault()
         addItemToList(this.state.currentValue) 
+        this.setState({
+            currentValue: ''
+        })
     }
 
     handleChange = ({ target }) => {
@@ -31,23 +33,22 @@ export class ItemsList extends Component {
     }
 
     componentWillReceiveProps(newProps) {
-        // console.log(this.props)
+        // console.log(this.prop)
         // console.log(newProps)
     }
 
     render() {
         return (
             <div className="list-wrapper">
-                <form action=""  >
+                <form action=""  id="form">
                     <input  type="text"
                             id="task-input"
                             placeholder="What needs to be done?" 
                             name="currentValue"
                             value={this.state.currentValue}
                             onChange={this.handleChange}
-                            // onClick={this.handleAddition}
                     />
-                    <button type="submit" onClick={this.handleAddition} id="add-btn">Add</button>
+                    <Button type="submit" icon="plus" onClick={this.handleAddition} id="add-btn" />
                 </form>
                 <List divided selection verticalAlign='middle' >
                         {this.props.options.map((task, i) => {
@@ -64,6 +65,7 @@ export class ItemsList extends Component {
 
 class Item extends Component {
     onCheckboxChange = ({target}) => {
+        console.log(this.props)
         if (this.props.isChecked === false) {
             addChecked(target.id)
         } else if (this.props.isChecked === true) {
@@ -76,11 +78,17 @@ class Item extends Component {
         removeItem(this.props.id)
     }
 
+    handleDoubleClick = (e) => {
+        e.preventDefault()
+        console.log('double')
+    }
+
     render() {
         return (
             
             <List.Item  className="list-item-wrapper" 
                         draggable="true" 
+                        onDoubleClick={this.handleDoubleClick}
                         // onDragEnd={this.dragEnd}
                         // onDragStart={this.dragStart}
                         >
@@ -88,13 +96,17 @@ class Item extends Component {
                         className="checkbox"
                         id={this.props.id}
                         value={this.props.id}
-                        defaultChecked={this.props.checked}
-                        onClick={this.onCheckboxChange}/>
+                        checked={this.props.isChecked}
+                        onChange={this.onCheckboxChange}/>  
+                <span></span>
+                {/* <List.Content  verticalAlign="middle">
+                    <Button  icon="pencil alternate" className="pencil" verticalalign="middle"  />
+                </List.Content> */}
                 <List.Content className="message-wrapper">
                     <List.Content className="message">{this.props.text}</List.Content>
                 </List.Content>
-                <List.Content floated='right'>
-                    <Button onClick={this.handleTaskRemoval}>X</Button>
+                <List.Content floated='right' verticalAlign="middle">
+                    <Button circular icon="minus" verticalalign="middle" onClick={this.handleTaskRemoval} />
                 </List.Content>
             </List.Item> 
         )
@@ -102,7 +114,7 @@ class Item extends Component {
 }
 
 function mapStateToProps(state) {
-    console.log(state.listReducer)
+    // console.log(state.listReducer)
     return {
         options: state.listReducer.listItems
     }

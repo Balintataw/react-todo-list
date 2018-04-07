@@ -1,44 +1,19 @@
 {
   "listItems": [
     {
-      "text": "wake up",
+      "text": "when i dont know who i am, I serve you. when i know who i am, I am you",
       "isChecked": false,
-      "id": 4
+      "id": 12
     },
     {
-      "text": "go to punch code",
+      "text": "most everything we encounter are thoughts. without thoughts, I can see everything",
       "isChecked": false,
-      "id": 5
+      "id": 13
     },
     {
-      "text": "go to punch code",
+      "text": "We are pure soul, free from the constraints of time and space",
       "isChecked": false,
-      "id": 6
-    },
-    {
-      "text": "go to punch code",
-      "isChecked": false,
-      "id": 7
-    },
-    {
-      "text": "go to punch code",
-      "isChecked": false,
-      "id": 8
-    },
-    {
-      "text": "go to punch code",
-      "isChecked": false,
-      "id": 9
-    },
-    {
-      "text": "go to punch code",
-      "isChecked": false,
-      "id": 10
-    },
-    {
-      "text": "go to punch code",
-      "isChecked": false,
-      "id": 11
+      "id": 14
     }
   ]
 }

@@ -31,10 +31,16 @@
       "id": 16
     },
     {
-      "text": "actually now it appears to work",
+      "text": "actually it works sometimes",
       "isChecked": false,
       "messageState": "message",
       "id": 17
+    },
+    {
+      "text": "add drag-n-drop functionality",
+      "isChecked": false,
+      "messageState": "message",
+      "id": 18
     }
   ]
 }

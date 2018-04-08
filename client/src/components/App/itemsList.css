@@ -73,6 +73,10 @@
     font-size: 18px;
 }
 
+.strike-message {
+    text-decoration: line-through;
+}
+
 .ui.icon.button.pencil {
     /* width: 10%; */
     height: 30px;

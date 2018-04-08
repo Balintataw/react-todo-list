@@ -32,10 +32,18 @@ export class ItemsList extends Component {
         })
     }
 
-    componentWillReceiveProps(newProps) {
-        // console.log(this.prop)
-        // console.log(newProps)
-    }
+    // componentWillReceiveProps(newProps) {
+    //     console.log(this.state)
+    //     console.log(this.prop)
+    //     console.log(newProps)
+    //     this.props.options.map((option, i) => {
+    //         if (option.isChecked === true) {
+    //             this.setState({
+    //                 message: 'strike-message'
+    //             })
+    //         }
+    //     })
+    // }
 
     render() {
         return (
@@ -64,6 +72,23 @@ export class ItemsList extends Component {
 };
 
 class Item extends Component {
+    state = {
+        message: 'message'
+    }
+    componentWillReceiveProps(newProps) {
+        console.log(this.state)
+        console.log(this.props)
+        console.log(newProps)
+        if (newProps.isChecked === true) {
+            this.setState({
+                message: 'strike-message'
+            })
+        } else {
+            this.setState({
+                message: 'message'
+            })
+        }
+    }
     onCheckboxChange = ({target}) => {
         console.log(this.props)
         if (this.props.isChecked === false) {
@@ -103,7 +128,7 @@ class Item extends Component {
                     <Button  icon="pencil alternate" className="pencil" verticalalign="middle"  />
                 </List.Content> */}
                 <List.Content className="message-wrapper">
-                    <List.Content className="message">{this.props.text}</List.Content>
+                    <List.Content className={this.state.message}>{this.props.text}</List.Content>
                 </List.Content>
                 <List.Content floated='right' verticalAlign="middle">
                     <Button circular icon="minus" verticalalign="middle" onClick={this.handleTaskRemoval} />

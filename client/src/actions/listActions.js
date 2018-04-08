@@ -31,7 +31,16 @@ export function getCompletedListItems() {
 export function addItemToList(item) {
     axios.post('http://localhost:3001/listItems', {
         text: item,
-        isChecked: false
+        isChecked: false,
+        messageState: "message"
+    }).then(resp => {
+        getListItems()
+    }).catch(e => console.log(e))
+}
+
+export function editItem(id, newText) {
+    axios.patch('http://localhost:3001/listItems/' + id, {
+        text: newText
     }).then(resp => {
         getListItems()
     }).catch(e => console.log(e))
@@ -55,7 +64,8 @@ export function removeItem(id) {
 
 export function addChecked(id) {
     axios.patch('http://localhost:3001/listItems/' + id, {
-        isChecked: true
+        isChecked: true,
+        messageState: "strike-message"
     }).then(resp => {
         getListItems()
     }).catch(e => console.log(e))
@@ -63,7 +73,8 @@ export function addChecked(id) {
 
 export function removeChecked(id) {
     axios.patch('http://localhost:3001/listItems/' + id, {
-        isChecked: false
+        isChecked: false,
+        messageState: "message"
     }).then(resp => {
         getListItems()
     }).catch(e => console.log(e))

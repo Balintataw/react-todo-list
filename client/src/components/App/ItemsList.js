@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { List, Button } from 'semantic-ui-react'
-import { getListItems, addChecked, removeChecked } from '../../actions/listActions'
+import { getListItems, addChecked, removeChecked, editItem } from '../../actions/listActions'
 import { addItemToList } from '../../actions/listActions'
 import { removeItem } from '../../actions/listActions'
 import TaskHandler from './TaskHandler'
@@ -10,6 +10,7 @@ import './itemsList.css'
 export class ItemsList extends Component {
     state = { 
         currentValue: '',
+        editMessage: ''
     }
     static defaultProps = {
         options:[ ]
@@ -32,19 +33,6 @@ export class ItemsList extends Component {
         })
     }
 
-    // componentWillReceiveProps(newProps) {
-    //     console.log(this.state)
-    //     console.log(this.prop)
-    //     console.log(newProps)
-    //     this.props.options.map((option, i) => {
-    //         if (option.isChecked === true) {
-    //             this.setState({
-    //                 message: 'strike-message'
-    //             })
-    //         }
-    //     })
-    // }
-
     render() {
         return (
             <div className="list-wrapper">
@@ -58,6 +46,7 @@ export class ItemsList extends Component {
                     />
                     <Button type="submit" icon="plus" onClick={this.handleAddition} id="add-btn" />
                 </form>
+                <p>double click to edit</p>
                 <List divided selection verticalAlign='middle' >
                         {this.props.options.map((task, i) => {
                             return  (
@@ -73,24 +62,12 @@ export class ItemsList extends Component {
 
 class Item extends Component {
     state = {
-        message: 'message'
+        edit: false,
+        editMessage: '',
+        editId: ''
     }
-    componentWillReceiveProps(newProps) {
-        console.log(this.state)
-        console.log(this.props)
-        console.log(newProps)
-        if (newProps.isChecked === true) {
-            this.setState({
-                message: 'strike-message'
-            })
-        } else {
-            this.setState({
-                message: 'message'
-            })
-        }
-    }
+
     onCheckboxChange = ({target}) => {
-        console.log(this.props)
         if (this.props.isChecked === false) {
             addChecked(target.id)
         } else if (this.props.isChecked === true) {
@@ -105,7 +82,24 @@ class Item extends Component {
 
     handleDoubleClick = (e) => {
         e.preventDefault()
-        console.log('double')
+        this.setState({
+            edit: !this.state.edit,
+            editId: e.target.id
+        })
+    }
+
+    handleChange = ({ target }) => {
+        this.setState({ 
+            [target.name]: target.value
+        })
+    }
+
+    handleEdit = (e) => {
+        e.preventDefault()
+        editItem(this.state.editId, this.state.editMessage)
+        this.setState({
+            edit: !this.state.edit
+        })
     }
 
     render() {
@@ -113,7 +107,7 @@ class Item extends Component {
             
             <List.Item  className="list-item-wrapper" 
                         draggable="true" 
-                        onDoubleClick={this.handleDoubleClick}
+                        // onDoubleClick={this.handleDoubleClick}
                         // onDragEnd={this.dragEnd}
                         // onDragStart={this.dragStart}
                         >
@@ -124,12 +118,16 @@ class Item extends Component {
                         checked={this.props.isChecked}
                         onChange={this.onCheckboxChange}/>  
                 <span></span>
-                {/* <List.Content  verticalAlign="middle">
-                    <Button  icon="pencil alternate" className="pencil" verticalalign="middle"  />
-                </List.Content> */}
-                <List.Content className="message-wrapper">
-                    <List.Content className={this.state.message}>{this.props.text}</List.Content>
-                </List.Content>
+                {!this.state.edit ? <List.Content className="message-wrapper">
+                    <List.Content className={this.props.messageState} id={this.props.id} onDoubleClick={this.handleDoubleClick}>{this.props.text}</List.Content>
+                </List.Content> : <form id="edit-form"><input type="text"
+                                         id={this.props.id}
+                                        //  placeholder={this.props.text}
+                                         name="editMessage"
+                                         value={this.state.editMessage}
+                                         onChange={this.handleChange}
+                                         />
+                                         <Button type="submit" onClick={this.handleEdit}/></form>}
                 <List.Content floated='right' verticalAlign="middle">
                     <Button circular icon="minus" verticalalign="middle" onClick={this.handleTaskRemoval} />
                 </List.Content>

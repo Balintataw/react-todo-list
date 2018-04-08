@@ -2,18 +2,39 @@
   "listItems": [
     {
       "text": "when i dont know who i am, I serve you. when i know who i am, I am you",
-      "isChecked": true,
+      "isChecked": false,
+      "messageState": "message",
       "id": 12
     },
     {
       "text": "most everything we encounter are thoughts. without thoughts, I can see everything",
       "isChecked": false,
+      "messageState": "message",
       "id": 13
     },
     {
-      "text": "We are pure soul, free from the constraints of time and space",
+      "text": "",
       "isChecked": false,
+      "messageState": "message",
       "id": 14
+    },
+    {
+      "text": "edit field should start with current text",
+      "isChecked": false,
+      "messageState": "message",
+      "id": 15
+    },
+    {
+      "text": "but it doesnt right now",
+      "isChecked": false,
+      "messageState": "message",
+      "id": 16
+    },
+    {
+      "text": "actually now it appears to work",
+      "isChecked": false,
+      "messageState": "message",
+      "id": 17
     }
   ]
 }

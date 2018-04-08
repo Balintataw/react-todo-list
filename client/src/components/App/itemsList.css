@@ -13,6 +13,13 @@
     padding-top: 20px;
 }
 
+.list-wrapper p {
+    width: 150px;
+    height: 0px;
+    margin-left: 20px;
+    font-size: 12px;
+}
+
 #malaking-container {
     width: 800px;
     background: rgb(250, 244, 236);
@@ -25,6 +32,24 @@
     border-top: 1px solid grey;
     border-bottom: 1px solid grey;
     font-size: 18px;
+}
+
+#edit-form {
+    display: flex;
+    
+}
+
+#edit-form button {
+    display: none;
+}
+
+#edit-form input {
+    width: 665px;
+    height: 30px;
+    line-height: 30px;
+    margin-left: 5px;
+    font-size: 18px;
+    border: none;
 }
 
 #add-btn {
@@ -49,15 +74,15 @@
 
 .ui.list > .item.list-item-wrapper {
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     /* width: 10px; */
     height: 50px;
     align-items: center;
 }
 
 .ui.divided.selection.list > .item {
-    /* display: flex; */
-    /* justify-content: flex-start; */
+    display: flex;
+    justify-content: space-between;
     
 }
 
@@ -85,9 +110,10 @@
     font-size: 18px;
 }
 
-.right.floated {
-    display: flex;
+.right.floated.middle.aligned {
+    /* display: flex; */
     /* justify-content: flex-end; */
+    /* float: right; */
     width: 50px;
     padding: 0;
     margin: 0;
